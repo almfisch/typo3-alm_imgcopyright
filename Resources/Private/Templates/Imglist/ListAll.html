@@ -1,0 +1,46 @@
+{namespace h=Tx_AlmImgcopyright_ViewHelpers}
+
+<f:comment>
+Template Vars:
+_all
+element
+settings
+files
+</f:comment>
+
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<f:flashMessages />
+
+<div class="almimgcopyright_listall">
+	<f:for each="{files}" as="resource">
+		<div class="row">
+			<div class="col-md-3">
+				<f:if condition="{resource.properties.tx_almimgcopyright_name}">
+					<f:then>
+						<f:image treatIdAsReference="1" src="{resource.uid}" maxWidth="500" class="img-responsive img-rounded img-thumbnail" alt="{resource.properties.tx_almimgcopyright_name}" title="{resource.properties.tx_almimgcopyright_name}" />
+					</f:then>
+					<f:else>
+						<f:image treatIdAsReference="1" src="{resource.uid}" maxWidth="500" class="img-responsive img-rounded img-thumbnail" alt="{settings.globalName}" title="{settings.globalName}" />
+					</f:else>
+				</f:if>
+			</div>
+			<div class="col-md-9">
+				<f:if condition="{resource.properties.tx_almimgcopyright_name}">
+					<f:then>
+						<div>Name: {resource.properties.tx_almimgcopyright_name}</div>
+						<div>Link: <f:link.typolink parameter="{resource.properties.tx_almimgcopyright_link}" title="{resource.properties.tx_almimgcopyright_name}" target="_blank">{resource.properties.tx_almimgcopyright_link}</f:link.typolink></div>
+					</f:then>
+					<f:else>
+						<div>Name: {settings.globalName}</div>
+						<div>Link: <f:link.typolink parameter="{settings.globalLink}" title="{settings.globaName}" target="_blank">{settings.globalLink}</f:link.typolink></div>
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</f:for>
+</div>
+
+</f:section>

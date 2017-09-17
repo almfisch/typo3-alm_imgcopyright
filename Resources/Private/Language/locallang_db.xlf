@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-05-01T17:08:08Z" product-name="alm_imgcopyright">
+		<header/>
+		<body>
+			<trans-unit id="tx_almimgcopyright_imglist_title">
+				<source>Image Copyright</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_description">
+				<source>Image Copyright: List of used images with copyright information</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_type">
+				<source>List Type</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_type_1">
+				<source>List all images</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_type_2">
+				<source>List images of this page</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_name">
+				<source>Copyright: Name</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_link">
+				<source>Copyright: Link (e.g. http://www.yourdomain.com/xyz/)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

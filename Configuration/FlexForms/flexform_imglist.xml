@@ -1,0 +1,37 @@
+<T3DataStructure>
+	<meta type="array">
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_title</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_type</label>
+						<config type="array">
+							<type>select</type>
+							<items type="array">
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_type_1</numIndex>
+									<numIndex index="1">Imglist->listAll</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_type_2</numIndex>
+									<numIndex index="1">Imglist->listPage</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+				</TCEforms>
+			</switchableControllerActions>
+		</el>
+	</ROOT>
+	</sDEF>
+	</sheets>
+</T3DataStructure>
