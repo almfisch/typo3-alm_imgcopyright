@@ -15,21 +15,20 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function initializeAction()
 	{
 		$this->cObjectData = $this->configurationManager->getContentObject()->data;
+		
+		$this->tableNames = $this->settings['tableNames'];
+		$this->fieldNames = $this->settings['fieldNames'];
+		$this->extensions = $this->settings['extensions'];
+		$this->showEmpty = $this->settings['showEmpty'];
+
+		$this->tableNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->tableNames, true);
+		$this->fieldNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->fieldNames, true);
+		$this->extensions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->extensions, true);
 	}
 
 	public function listAllAction()
 	{
-		$tableNames = $this->settings['tableNames'];
-		$fieldNames = $this->settings['fieldNames'];
-		$extensions = $this->settings['extensions'];
-		$globalName = $this->settings['globalName'];
-		$globalLink = $this->settings['globalLink'];
-
-		$tableNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tableNames, true);
-		$fieldNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fieldNames, true);
-		$extensions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $extensions, true);
-		
-		$files = $this->fileRepository->findAllByRelation($tableNames, $fieldNames, $extensions);
+		$files = $this->fileRepository->findAllByRelation($this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty);
 
 		$this->view->assign('element', $this->cObjectData);
 		$this->view->assign('files', $files);
@@ -37,19 +36,9 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	public function listPageAction()
 	{
-		$tableNames = $this->settings['tableNames'];
-		$fieldNames = $this->settings['fieldNames'];
-		$extensions = $this->settings['extensions'];
-		$globalName = $this->settings['globalName'];
-		$globalLink = $this->settings['globalLink'];
-
-		$tableNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tableNames, true);
-		$fieldNames = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fieldNames, true);
-		$extensions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $extensions, true);
-		
 		$pid = $this->cObjectData['pid'];
 
-		$files = $this->fileRepository->findAllByPage($pid, $tableNames, $fieldNames, $extensions);
+		$files = $this->fileRepository->findAllByPage($pid, $this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty);
 
 		$this->view->assign('element', $this->cObjectData);
 		$this->view->assign('files', $files);

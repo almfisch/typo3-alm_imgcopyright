@@ -24,6 +24,9 @@
 			<trans-unit id="tx_almimgcopyright_link">
 				<source>Copyright: Link (e.g. http://www.yourdomain.com/xyz/)</source>
 			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_exlist">
+				<source>Copyright: Exclude from Lists</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

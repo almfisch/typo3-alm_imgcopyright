@@ -20,7 +20,18 @@ $tempColumns = array(
         	'max' => '255',
         )
     ),
+    'tx_almimgcopyright_exlist' => array(
+        'label' => 'LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xlf:tx_almimgcopyright_exlist',
+        'config' => array(
+        	'type' => 'check',
+        	'items' => [
+            	'1' => [
+                	'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+                ]
+            ]
+        )
+    ),
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_file_metadata', $tempColumns, 1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_file_metadata', 'tx_almimgcopyright_name, tx_almimgcopyright_link', '', 'after:alternative');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_file_metadata', 'tx_almimgcopyright_name, tx_almimgcopyright_link, tx_almimgcopyright_exlist', '', 'after:alternative');

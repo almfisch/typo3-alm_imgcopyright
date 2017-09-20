@@ -3,7 +3,14 @@ plugin.tx_almimgcopyright {
 		tableNames = pages, tt_content, tx_news_domain_model_news
 		fieldNames = media, fal_media, image, images
 		extensions = jpg, jpeg, png, gif
+		showEmpty = 0
 		globalName =
 		globalLink =
+	}
+	list {
+		globalName = TEXT
+		globalName.value =
+		globalLink = TEXT
+		globalLink.value =
 	}
 }
