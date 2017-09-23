@@ -51,15 +51,15 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
             );
             $itemList = $this->prepareList($references);
         }
-        
+
         return $itemList;
     }
-        
-        
+
+
     private function prepareList($references)
     {
     	$itemList = [];
-    
+
     	if(!empty($references))
     	{
            	$referencesUnique = [];
@@ -72,7 +72,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
             $referenceUids = array_keys($references);
             $fileUids = array_values($references);
         }
-            
+
         if(!empty($referenceUids))
         {
         	foreach ($referenceUids as $referenceUid)
@@ -97,7 +97,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
             	}
     		}
     	}
-    	
+
     	return $itemList;
     }
 }

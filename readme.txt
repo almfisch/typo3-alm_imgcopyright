@@ -1,5 +1,6 @@
 AlmImageCopyright:
-Adds fields for copyright information in original file
+Adds copyright-fields to Files, to use in your templates for image-license-information.
+Content-Element to show all used images with license-information, e.g. in 'imprint' or show all used images on a page, e.g. in footer.
 
 
 New Database-Fields:
