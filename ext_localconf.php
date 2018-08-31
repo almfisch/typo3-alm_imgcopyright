@@ -3,6 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:alm_imgcopyright/Configuration/TypoScript/setup.txt">');
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Alm.' . $_EXTKEY,
 	'Imglist',

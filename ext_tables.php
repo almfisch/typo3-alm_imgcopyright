@@ -17,4 +17,11 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 if (TYPO3_MODE == 'BE')
 {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['imglist_wizicon'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Hooks/class.imglist_wizicon.php';
+
+	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Imaging\IconRegistry');
+    $iconRegistry->registerIcon(
+        'plugins_tx_imgcopyright_icon',
+        'TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider',
+        ['source' => 'EXT:alm_imgcopyright/Resources/Public/Icons/imglist_wizard.gif']
+    );
 }

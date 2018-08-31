@@ -15,16 +15,17 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Image Copyright Information System.',
 	'category' => 'be',
 	'author' => 'Andi Platen',
-	'author_email' => 'info@wireframe.de',
-	'state' => 'beta',
+	'author_email' => 'info@code-department.de',
+    'author_company' => 'Code Department',
+	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.2.0',
+	'version' => '2.0.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-7.6.99',
+			'typo3' => '8.7.0-8.7.99',
 		),
 		'conflicts' => array(
 		),

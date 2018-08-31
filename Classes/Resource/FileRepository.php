@@ -1,58 +1,100 @@
 <?php
 namespace Alm\AlmImgcopyright\Resource;
 
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+
 class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 {
 	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty)
     {
-    	$this->extensions = $extensions;
+		$this->extensions = $extensions;
     	$this->showEmpty = $showEmpty;
-        $referenceUids = null;
-        $fileUids = null;
-        if ($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page)) {
-            $frontendController = $GLOBALS['TSFE'];
-            $references = $this->getDatabaseConnection()->exec_SELECTgetRows(
-                'uid, uid_local',
-                'sys_file_reference',
-                'tablenames IN (' . implode(',', $this->getDatabaseConnection()->fullQuoteArray($tableNames, 'sys_file_reference')) . ')' .
-                    ' AND fieldname IN (' . implode(',', $this->getDatabaseConnection()->fullQuoteArray($fieldNames, 'sys_file_reference')) . ') '
-                    . $frontendController->sys_page->enableFields('sys_file_reference', $frontendController->showHiddenRecords),
-                '',
-                'sorting_foreign',
-                '',
-                'uid'
-            );
-            $itemList = $this->prepareList($references);
-        }
+        $referenceUids = [];
+		$itemList = [];
 
-        return $itemList;
-    }
+		if($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page))
+		{
+			$frontendController = $GLOBALS['TSFE'];
+
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+
+            $res = $queryBuilder
+                ->select('uid', 'uid_local')
+                ->from('sys_file_reference')
+                ->where(
+                    $queryBuilder->expr()->in(
+                        'tablenames',
+                        $queryBuilder->createNamedParameter($tableNames, Connection::PARAM_STR_ARRAY)
+                    ),
+                    $queryBuilder->expr()->in(
+                        'fieldname',
+                        $queryBuilder->createNamedParameter($fieldNames, Connection::PARAM_STR_ARRAY)
+                    )
+                )
+                ->orderBy('sorting_foreign')
+                ->execute();
+
+            while($row = $res->fetch())
+            {
+                $referenceUids[] = array('uid' => $row['uid'], 'uid_local' => $row['uid_local']);
+            }
+
+            $itemList = $this->prepareList($referenceUids);
+
+            return $itemList;
+		}
+	}
 
 
-    public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty)
+	public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty)
     {
     	$this->extensions = $extensions;
     	$this->showEmpty = $showEmpty;
-        $referenceUids = null;
-        $fileUids = null;
-        if ($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page)) {
-            $frontendController = $GLOBALS['TSFE'];
-            $references = $this->getDatabaseConnection()->exec_SELECTgetRows(
-                'uid, uid_local',
-                'sys_file_reference',
-                'pid = ' . (int)$pid .
-                	' AND tablenames IN (' . implode(',', $this->getDatabaseConnection()->fullQuoteArray($tableNames, 'sys_file_reference')) . ')' .
-                    ' AND fieldname IN (' . implode(',', $this->getDatabaseConnection()->fullQuoteArray($fieldNames, 'sys_file_reference')) . ') '
-                    . $frontendController->sys_page->enableFields('sys_file_reference', $frontendController->showHiddenRecords),
-                '',
-                'sorting_foreign',
-                '',
-                'uid'
-            );
-            $itemList = $this->prepareList($references);
-        }
+        $referenceUids = [];
+		$itemList = [];
 
-        return $itemList;
+		if($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page))
+		{
+			$frontendController = $GLOBALS['TSFE'];
+
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
+            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+
+            $res = $queryBuilder
+                ->select('uid', 'uid_local')
+                ->from('sys_file_reference')
+                ->where(
+                	$queryBuilder->expr()->eq(
+                        'pid',
+                        $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+                    ),
+                    $queryBuilder->expr()->in(
+                        'tablenames',
+                        $queryBuilder->createNamedParameter($tableNames, Connection::PARAM_STR_ARRAY)
+                    ),
+                    $queryBuilder->expr()->in(
+                        'fieldname',
+                        $queryBuilder->createNamedParameter($fieldNames, Connection::PARAM_STR_ARRAY)
+                    )
+                )
+                ->orderBy('sorting_foreign')
+                ->execute();
+
+            while($row = $res->fetch())
+            {
+                $referenceUids[] = array('uid' => $row['uid'], 'uid_local' => $row['uid_local']);
+            }
+
+            $itemList = $this->prepareList($referenceUids);
+
+            return $itemList;
+		}
     }
 
 
@@ -75,7 +117,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 
         if(!empty($referenceUids))
         {
-        	foreach ($referenceUids as $referenceUid)
+        	foreach($referenceUids as $referenceUid)
         	{
             	try
             	{
@@ -85,8 +127,8 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                 		in_array($fileExtension, $this->extensions) &&
                 		$fileReferenceObject->isMissing() === false &&
                 		file_exists($fileReferenceObject->getPublicUrl()) === true &&
-                		$fileReferenceObject->getProperty('tx_almimgcopyright_exlist') == false &&
-                		(($showEmpty == false && !empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))) || ($this->showEmpty == true))
+                		$fileReferenceObject->getProperty('tx_almimgcopyright_exlist') !== true &&
+                		(($this->showEmpty == false && !empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))) || ($this->showEmpty == true))
                 	)
             		{
                     	$itemList[] = $fileReferenceObject;

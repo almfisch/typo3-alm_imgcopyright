@@ -15,7 +15,7 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function initializeAction()
 	{
 		$this->cObjectData = $this->configurationManager->getContentObject()->data;
-		
+
 		$this->tableNames = $this->settings['tableNames'];
 		$this->fieldNames = $this->settings['fieldNames'];
 		$this->extensions = $this->settings['extensions'];

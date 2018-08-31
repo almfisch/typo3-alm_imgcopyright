@@ -11,7 +11,7 @@ class imglist_wizicon
     function proc($wizardItems)
     {
     	$wizardItems['plugins_tx_imgcopyright'] = array(
-        	'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('alm_imgcopyright') . 'Resources/Public/Icons/imglist_wizard.gif',
+        	'iconIdentifier' => 'plugins_tx_imgcopyright_icon',
             'title' => $GLOBALS['LANG']->sL('LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xlf:tx_almimgcopyright_imglist_title'),
             'description' => $GLOBALS['LANG']->sL('LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xlf:tx_almimgcopyright_imglist_description'),
             'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=almimgcopyright_imglist'
