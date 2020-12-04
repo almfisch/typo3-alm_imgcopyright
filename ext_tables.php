@@ -3,25 +3,15 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	$_EXTKEY,
-	'Imglist',
-	'Image List'
-);
-
-$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
-$pluginSignature = strtolower($extensionName) . '_imglist';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_imglist.xml');
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['almimgcopyright_imglist'] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('almimgcopyright_imglist', 'FILE:EXT:alm_imgcopyright/Configuration/FlexForms/flexform_imglist.xml');
 
 if (TYPO3_MODE == 'BE')
 {
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['imglist_wizicon'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Hooks/class.imglist_wizicon.php';
-
 	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Imaging\IconRegistry');
     $iconRegistry->registerIcon(
-        'plugins_tx_imgcopyright_icon',
+        'tx_alm_imgcopyright_icon',
         'TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider',
-        ['source' => 'EXT:alm_imgcopyright/Resources/Public/Icons/imglist_wizard.gif']
+        ['source' => 'EXT:alm_imgcopyright/Resources/Public/Icons/Extension.png']
     );
 }

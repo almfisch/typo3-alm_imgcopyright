@@ -4,13 +4,18 @@ namespace Alm\AlmImgcopyright\Controller;
 class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 	/**
-	 * fileRepository
-	 *
-	 * @var Alm\AlmImgcopyright\Resource\FileRepository
-	 * @inject
+	 * @var \Alm\AlmImgcopyright\Resource\FileRepository
 	 */
 	protected $fileRepository;
 
+
+	/**
+     * @param \Alm\AlmImgcopyright\Resource\FileRepository $fileRepository
+     */
+    public function injectFileRepository(\Alm\AlmImgcopyright\Resource\FileRepository $fileRepository)
+    {
+        $this->fileRepository = $fileRepository;
+    }
 
 	public function initializeAction()
 	{
@@ -28,7 +33,7 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	public function listAllAction()
 	{
-		$files = $this->fileRepository->findAllByRelation($this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty);
+		$files = $this->fileRepository->findAllByRelation($this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty, $this->settings);
 
 		$this->view->assign('element', $this->cObjectData);
 		$this->view->assign('files', $files);
@@ -38,7 +43,7 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	{
 		$pid = $this->cObjectData['pid'];
 
-		$files = $this->fileRepository->findAllByPage($pid, $this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty);
+		$files = $this->fileRepository->findAllByPage($pid, $this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty, $this->settings);
 
 		$this->view->assign('element', $this->cObjectData);
 		$this->view->assign('files', $files);

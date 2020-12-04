@@ -1,22 +1,15 @@
 plugin.tx_almimgcopyright {
 	settings {
-		tableNames = pages, tt_content, tx_news_domain_model_news
-		fieldNames = media, fal_media, image, images
-		extensions = jpg, jpeg, png, gif
-		showEmpty = 0
-		globalName =
-		globalLink =
-	}
-	list {
-		globalName = TEXT
-        globalName.value =
-        globalLink = TEXT
-        globalLink.value =
+		tableNames = {$plugin.tx_almimgcopyright.settings.tableNames}
+		fieldNames = {$plugin.tx_almimgcopyright.settings.fieldNames}
+		extensions = {$plugin.tx_almimgcopyright.settings.extensions}
+		globalName = {$plugin.tx_almimgcopyright.settings.globalName}
+		globalLink = {$plugin.tx_almimgcopyright.settings.globalLink}
 	}
 	view {
-			templateRootPaths.0 = EXT:alm_imgcopyright/Resources/Private/Templates/
-			partialRootPaths.0 = EXT:alm_imgcopyright/Resources/Private/Partials/
-			layoutRootPaths.0 = EXT:alm_imgcopyright/Resources/Private/Layouts/
+			templateRootPaths.0 = {$plugin.tx_almimgcopyright.view.templateRootPaths.0}
+			partialRootPaths.0 = {$plugin.tx_almimgcopyright.view.partialRootPaths.0}
+			layoutRootPaths.0 = {$plugin.tx_almimgcopyright.view.layoutRootPaths.0}
 		}
 	}
 }

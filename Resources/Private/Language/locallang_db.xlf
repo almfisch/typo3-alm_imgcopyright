@@ -7,10 +7,7 @@
 				<source>Image Copyright</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_imglist_description">
-				<source>Image Copyright: List of used images with copyright information</source>
-			</trans-unit>
-			<trans-unit id="tx_almimgcopyright_imglist_type">
-				<source>List Type</source>
+				<source>List of used images with copyright information</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_imglist_type_1">
 				<source>List all images</source>
@@ -26,6 +23,36 @@
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_exlist">
 				<source>Copyright: Exclude from Lists</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_inlist">
+				<source>Copyright: Include in Lists</source>
+			</trans-unit>
+
+			<trans-unit id="tx_almimgcopyright_imglist_type">
+				<source>List Type</source>
+			</trans-unit>
+
+			<trans-unit id="tx_almimgcopyright_imglist_exinlist">
+				<source>Include / Exclude</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_exinlist_1">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_exinlist_2">
+				<source>Only Include</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_exinlist_3">
+				<source>Hide Exclude</source>
+			</trans-unit>
+
+			<trans-unit id="tx_almimgcopyright_imglist_showempty">
+				<source>Show Empty</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_showempty_0">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_showempty_1">
+				<source>Yes</source>
 			</trans-unit>
 		</body>
 	</file>

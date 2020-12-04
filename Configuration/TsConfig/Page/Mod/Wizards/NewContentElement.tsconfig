@@ -1,0 +1,17 @@
+mod.wizards {
+    newContentElement.wizardItems {
+        plugins {
+            elements {
+                tx_alm_imgcopyright {
+                    iconIdentifier = tx_alm_imgcopyright_icon
+					title = LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xlf:tx_almimgcopyright_imglist_title
+					description = LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xlf:tx_almimgcopyright_imglist_description
+					tt_content_defValues {
+						CType = list
+						list_type = almimgcopyright_imglist
+					}
+                }
+            }
+        }
+    }
+}

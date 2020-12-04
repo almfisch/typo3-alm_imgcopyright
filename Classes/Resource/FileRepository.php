@@ -10,10 +10,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 {
-	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty)
+	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty, $settings)
     {
 		$this->extensions = $extensions;
-    	$this->showEmpty = $showEmpty;
+        $this->showEmpty = $showEmpty;
+        $this->settings = $settings;
         $referenceUids = [];
 		$itemList = [];
 
@@ -52,10 +53,11 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 	}
 
 
-	public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty)
+	public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty, $settings)
     {
-    	$this->extensions = $extensions;
-    	$this->showEmpty = $showEmpty;
+        $this->extensions = $extensions;
+        $this->showEmpty = $showEmpty;
+        $this->settings = $settings;
         $referenceUids = [];
 		$itemList = [];
 
@@ -70,7 +72,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                 ->select('uid', 'uid_local')
                 ->from('sys_file_reference')
                 ->where(
-                	$queryBuilder->expr()->eq(
+                    $queryBuilder->expr()->eq(
                         'pid',
                         $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
                     ),
@@ -100,14 +102,14 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 
     private function prepareList($references)
     {
-    	$itemList = [];
+        $itemList = [];
 
-    	if(!empty($references))
-    	{
-           	$referencesUnique = [];
+        if(!empty($references))
+        {
+            $referencesUnique = [];
             foreach($references as $reference)
             {
-            	$referencesUnique[$reference['uid_local']] = $reference['uid'];
+                $referencesUnique[$reference['uid_local']] = $reference['uid'];
             }
             $references = $referencesUnique;
             $references = array_flip($references);
@@ -117,29 +119,48 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 
         if(!empty($referenceUids))
         {
-        	foreach($referenceUids as $referenceUid)
-        	{
-            	try
-            	{
-                	$fileReferenceObject = $this->factory->getFileReferenceObject($referenceUid);
-                	$fileExtension = $fileReferenceObject->getExtension();
-                	if(
-                		in_array($fileExtension, $this->extensions) &&
-                		$fileReferenceObject->isMissing() === false &&
-                		file_exists($fileReferenceObject->getPublicUrl()) === true &&
-                		$fileReferenceObject->getProperty('tx_almimgcopyright_exlist') !== true &&
-                		(($this->showEmpty == false && !empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))) || ($this->showEmpty == true))
-                	)
-            		{
-                    	$itemList[] = $fileReferenceObject;
+            foreach($referenceUids as $referenceUid)
+            {
+                $addItem = 0;
+
+                try
+                {
+                    $fileReferenceObject = $this->factory->getFileReferenceObject($referenceUid);
+                    $fileExtension = $fileReferenceObject->getExtension();
+                    if(
+                        in_array($fileExtension, $this->extensions) &&
+                        $fileReferenceObject->isMissing() === false &&
+                        file_exists($fileReferenceObject->getPublicUrl()) === true
+                    )
+                    {
+                        if($this->settings['flexform']['exinlist'] == 1)
+                        {
+                            $addItem = 1;
+                        }
+                        if($this->settings['flexform']['exinlist'] == 2 && $fileReferenceObject->getProperty('tx_almimgcopyright_inlist') == 1)
+                        {
+                            $addItem = 1;
+                        }
+                        if($this->settings['flexform']['exinlist'] == 3 && $fileReferenceObject->getProperty('tx_almimgcopyright_exlist') != 1)
+                        {
+                            $addItem = 1;
+                        }
+                        if($addItem == 1 && ($this->settings['flexform']['showempty'] != 1 && empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))))
+                        {
+                            $addItem = 0;
+                        }
+                    }
+                    if($addItem == 1)
+                    {
+                        $itemList[] = $fileReferenceObject;
                     }
                 }
                 catch (ResourceDoesNotExistException $exception)
                 {
-            	}
-    		}
-    	}
+                }
+            }
+        }
 
-    	return $itemList;
+        return $itemList;
     }
 }
