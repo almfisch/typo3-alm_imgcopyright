@@ -127,10 +127,11 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                 {
                     $fileReferenceObject = $this->factory->getFileReferenceObject($referenceUid);
                     $fileExtension = $fileReferenceObject->getExtension();
+
                     if(
                         in_array($fileExtension, $this->extensions) &&
                         $fileReferenceObject->isMissing() === false &&
-                        file_exists($fileReferenceObject->getPublicUrl()) === true
+                        file_exists($_SERVER['DOCUMENT_ROOT'] . $fileReferenceObject->getPublicUrl()) === true
                     )
                     {
                         if($this->settings['flexform']['exinlist'] == 1)
