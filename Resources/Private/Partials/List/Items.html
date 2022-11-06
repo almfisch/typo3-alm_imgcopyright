@@ -9,7 +9,22 @@ settings
 files
 </f:comment>
 
-<f:for each="{files}" as="resource">
+
+<f:comment>
+	<div>
+		<b>Gesamt:</b> {files->f:count()}
+	</div>
+
+	<f:for each="{files}" as="resource" iteration="counter">
+		<div>
+			<a href="{f:uri.image(image:resource)}" title="{resource.title}" target="_blank">
+				{counter.cycle}: {f:uri.image(image:resource, absolute:1)}
+			</a>
+		</div>
+	</f:for>
+</f:comment>
+
+<f:for each="{files}" as="resource" iteration="counter">
 	<div class="row">
 		<div class="col-md-3">
 			<f:if condition="{resource.properties.tx_almimgcopyright_name}">
@@ -22,6 +37,11 @@ files
 			</f:if>
 		</div>
 		<div class="col-md-9">
+			<f:comment>
+				<div>
+					{counter.cycle}
+				</div>
+			</f:comment>
 			<f:if condition="{resource.properties.tx_almimgcopyright_name}">
 				<f:then>
 					<div>Name: {resource.properties.tx_almimgcopyright_name}</div>
@@ -32,6 +52,13 @@ files
 					<div>Link: <f:link.typolink parameter="{settings.globalLink}" title="{settings.globaName}" target="_blank">{settings.globalLink}</f:link.typolink></div>
 				</f:else>
 			</f:if>
+			<f:comment>
+				<div>
+					<a href="{f:uri.image(image:resource)}" title="{resource.title}" target="_blank">
+						{f:uri.image(image:resource, absolute:1)}
+					</a>
+				</div>
+			</f:comment>
 		</div>
 	</div>
 </f:for>

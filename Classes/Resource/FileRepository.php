@@ -146,9 +146,12 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                         {
                             $addItem = 1;
                         }
-                        if($addItem == 1 && ($this->settings['flexform']['showempty'] != 1 && empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))))
+                        if($addItem == 1)
                         {
-                            $addItem = 0;
+                            if(($this->settings['flexform']['showempty'] == 0 && empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))) || ($this->settings['flexform']['showempty'] == 2 && !empty($fileReferenceObject->getProperty('tx_almimgcopyright_name'))))
+                            {
+                                $addItem = 0;
+                            }
                         }
                     }
                     if($addItem == 1)
@@ -160,6 +163,13 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                 {
                 }
             }
+        }
+
+        if($this->settings['flexform']['sort'] == 1)
+        {
+            usort($itemList, function($first, $second){
+                return strcasecmp($first->getProperty('tx_almimgcopyright_name'), $second->getProperty('tx_almimgcopyright_name'));
+            });
         }
 
         return $itemList;

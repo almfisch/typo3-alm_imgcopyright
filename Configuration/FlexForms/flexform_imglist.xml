@@ -73,12 +73,38 @@
 									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_showempty_1</numIndex>
 									<numIndex index="1">1</numIndex>
 								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_showempty_2</numIndex>
+									<numIndex index="1">2</numIndex>
+								</numIndex>
 							</items>
 							<maxitems>1</maxitems>
 							<size>1</size>
 						</config>
 				</TCEforms>
 			</settings.flexform.showempty>
+
+			<settings.flexform.sort>
+				<TCEforms>
+					<label>LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_sort</label>
+						<config type="array">
+							<type>select</type>
+							<renderType>selectSingle</renderType>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_sort_0</numIndex>
+									<numIndex index="1">0</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:alm_imgcopyright/Resources/Private/Language/locallang_db.xml:tx_almimgcopyright_imglist_sort_1</numIndex>
+									<numIndex index="1">1</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+				</TCEforms>
+			</settings.flexform.sort>
 		</el>
 	</ROOT>
 	</sDEF>

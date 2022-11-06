@@ -54,6 +54,19 @@
 			<trans-unit id="tx_almimgcopyright_imglist_showempty_1">
 				<source>Yes</source>
 			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_showempty_2">
+				<source>Empty Only</source>
+			</trans-unit>
+
+			<trans-unit id="tx_almimgcopyright_imglist_sort">
+				<source>Sort</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_sort_0">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="tx_almimgcopyright_imglist_sort_1">
+				<source>Copyright: Name</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
