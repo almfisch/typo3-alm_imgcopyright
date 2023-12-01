@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
 	die('Access denied.');
 }
 
@@ -26,9 +26,9 @@ $tempColumns = array(
             'type' => 'check',
             'renderType' => 'checkboxToggle',
             'items' => [
-                '1' => [
-                    '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-                ]
+                [
+                    'label' => '',
+                ],
             ]
         )
     ),
@@ -38,13 +38,13 @@ $tempColumns = array(
             'type' => 'check',
             'renderType' => 'checkboxToggle',
             'items' => [
-                '1' => [
-                    '0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-                ]
+                [
+                    'label' => '',
+                ],
             ]
         )
     ),
-    );
+);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_file_metadata', $tempColumns, 1);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_file_metadata', 'tx_almimgcopyright_name, tx_almimgcopyright_link, tx_almimgcopyright_exlist, tx_almimgcopyright_inlist', '', 'after:title');

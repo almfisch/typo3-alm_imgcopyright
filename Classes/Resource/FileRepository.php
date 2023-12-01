@@ -10,7 +10,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 {
-	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty, $settings)
+	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty, $settings, $cObject)
     {
 		$this->extensions = $extensions;
         $this->showEmpty = $showEmpty;
@@ -18,10 +18,8 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
         $referenceUids = [];
 		$itemList = [];
 
-		if($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page))
+		if($this->getEnvironmentMode() === 'FE' && !empty($cObject))
 		{
-			$frontendController = $GLOBALS['TSFE'];
-
 			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 
@@ -53,7 +51,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 	}
 
 
-	public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty, $settings)
+	public function findAllByPage($pid, $tableNames, $fieldNames, $extensions, $showEmpty, $settings, $cObject)
     {
         $this->extensions = $extensions;
         $this->showEmpty = $showEmpty;
@@ -61,10 +59,8 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
         $referenceUids = [];
 		$itemList = [];
 
-		if($this->getEnvironmentMode() === 'FE' && !empty($GLOBALS['TSFE']->sys_page))
+		if($this->getEnvironmentMode() === 'FE' && !empty($cObject))
 		{
-			$frontendController = $GLOBALS['TSFE'];
-
 			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 

@@ -1,0 +1,13 @@
+{
+    "name": "alm/alm-imgcopyright",
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "alm_imgcopyright"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Alm\\AlmImgcopyright\\": "Classes/"
+        }
+    }
+}
