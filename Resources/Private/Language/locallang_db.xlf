@@ -22,10 +22,10 @@
 				<source>Copyright: Link (e.g. http://www.yourdomain.com/xyz/)</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_exlist">
-				<source>Copyright: Exclude from Lists</source>
+				<source>Copyright: Exclude from List</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_inlist">
-				<source>Copyright: Include in Lists</source>
+				<source>Copyright: Include in List</source>
 			</trans-unit>
 
 			<trans-unit id="tx_almimgcopyright_imglist_type">
@@ -39,10 +39,10 @@
 				<source>All</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_imglist_exinlist_2">
-				<source>Only Include</source>
+				<source>Include in List</source>
 			</trans-unit>
 			<trans-unit id="tx_almimgcopyright_imglist_exinlist_3">
-				<source>Hide Exclude</source>
+				<source>Exclude from List</source>
 			</trans-unit>
 
 			<trans-unit id="tx_almimgcopyright_imglist_showempty">
