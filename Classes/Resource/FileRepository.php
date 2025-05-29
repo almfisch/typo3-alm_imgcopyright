@@ -8,8 +8,14 @@ use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 
-class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
+final class FileRepository
 {
+    public function __construct(
+        private readonly \TYPO3\CMS\Core\Resource\FileRepository $fileRepository,
+    )
+    {
+    }
+
 	public function findAllByRelation($tableNames, $fieldNames, $extensions, $showEmpty, $settings, $cObject)
     {
 		$this->extensions = $extensions;
@@ -18,7 +24,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
         $referenceUids = [];
 		$itemList = [];
 
-		if($this->getEnvironmentMode() === 'FE' && !empty($cObject))
+		if(\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend() && !empty($cObject))
 		{
 			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
@@ -37,9 +43,9 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                     )
                 )
                 ->orderBy('sorting_foreign')
-                ->execute();
+                ->executeQuery();
 
-            while($row = $res->fetch())
+            while($row = $res->fetchAssociative())
             {
                 $referenceUids[] = array('uid' => $row['uid'], 'uid_local' => $row['uid_local']);
             }
@@ -59,7 +65,7 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
         $referenceUids = [];
 		$itemList = [];
 
-		if($this->getEnvironmentMode() === 'FE' && !empty($cObject))
+		if(\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend() && !empty($cObject))
 		{
 			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
             $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
@@ -82,9 +88,9 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
                     )
                 )
                 ->orderBy('sorting_foreign')
-                ->execute();
+                ->executeQuery();
 
-            while($row = $res->fetch())
+            while($row = $res->fetchAssociative())
             {
                 $referenceUids[] = array('uid' => $row['uid'], 'uid_local' => $row['uid_local']);
             }
@@ -121,7 +127,8 @@ class FileRepository extends \TYPO3\CMS\Core\Resource\FileRepository
 
                 try
                 {
-                    $fileReferenceObject = $this->factory->getFileReferenceObject($referenceUid);
+                    $resourceFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
+                    $fileReferenceObject = $resourceFactory->getFileReferenceObject($referenceUid);
                     $fileExtension = $fileReferenceObject->getExtension();
 
                     if(

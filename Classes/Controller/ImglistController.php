@@ -18,7 +18,7 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->fileRepository = $fileRepository;
     }
 
-	public function initializeAction()
+	public function initializeAction(): void
 	{
 		$this->cObjectData = $this->request->getAttribute('currentContentObject')->data;
 

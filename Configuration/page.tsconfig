@@ -1,3 +1,6 @@
+# @import 'EXT:alm_imgcopyright/Configuration/TsConfig/Page/Mod/Wizards/NewContentElement.tsconfig'
+
+/*
 mod.wizards {
     newContentElement.wizardItems {
         plugins {
@@ -15,3 +18,4 @@ mod.wizards {
         }
     }
 }
+*/
