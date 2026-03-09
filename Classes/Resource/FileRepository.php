@@ -1,6 +1,7 @@
 <?php
 namespace Alm\AlmImgcopyright\Resource;
 
+use TYPO3\CMS\Core\Database\Connection as Typo3Connection;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -76,7 +77,7 @@ final class FileRepository
                 ->where(
                     $queryBuilder->expr()->eq(
                         'pid',
-                        $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+                        $queryBuilder->createNamedParameter($pid, Typo3Connection::PARAM_INT)
                     ),
                     $queryBuilder->expr()->in(
                         'tablenames',

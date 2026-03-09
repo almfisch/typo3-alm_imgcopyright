@@ -41,7 +41,7 @@ class ImglistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		if($this->settings['flexform']['listType'] == 2)
 		{
-			$pid = $this->cObjectData['pid'];
+			$pid = $this->request->getAttribute('routing')->getPageId();
 			$files = $this->fileRepository->findAllByPage($pid, $this->tableNames, $this->fieldNames, $this->extensions, $this->showEmpty, $this->settings, $this->cObjectData);
 		}
 
